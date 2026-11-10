@@ -1,0 +1,7 @@
+.board-page {
+  min-height: 100vh;
+  transition: background-color 0.8s ease;
+}
+
+.turn-red  { background-color: var(--team-red); }
+.turn-blue { background-color: var(--team-blue); }

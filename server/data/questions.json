@@ -1,0 +1,6 @@
+{
+  "id": 1,
+  "question": "What is the capital of France?",
+  "answers": ["Paris", "Rome", "Madrid", "Berlin"],
+  "correct": 0
+}
