@@ -1,21 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import socket from "../socket";
+import useGameState from "../hooks/useGameState";
 import PlayerList from "../components/ui/PlayerList.jsx";
 
-// The projector's home screen: both join codes, with live player lists.
+// The projector's home screen. Moves to the board automatically when the host starts the game.
 export default function Lobby() {
-  const [game, setGame] = useState(null);
+  const navigate = useNavigate();
+  const { game } = useGameState(() => socket.emit("displayJoin"));
 
   useEffect(() => {
-    const join = () => socket.emit("displayJoin");
-    if (socket.connected) join();
-    socket.on("connect", join);
-    socket.on("lobby", setGame);
-    return () => {
-      socket.off("connect", join);
-      socket.off("lobby", setGame);
-    };
-  }, []);
+    if (game && game.phase !== "lobby") navigate("/board");
+  }, [game, navigate]);
 
   const teams = game ? [game.teams.red, game.teams.blue] : [];
 

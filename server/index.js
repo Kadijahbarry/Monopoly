@@ -1,6 +1,7 @@
 import express from "express";
 import http from "http";
 import fs from "fs";
+import { CONFIG } from "./game/config.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import { Server } from "socket.io";
@@ -29,7 +30,9 @@ server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`Team Red code:  ${state.teams.red.code}`);
   console.log(`Team Blue code: ${state.teams.blue.code}`);
+  console.log(`Host PIN:       ${CONFIG.HOST_PIN}`);
   if (questionCount < 40) console.warn(`Only ${questionCount} questions loaded (you need 40).`);
 });
+
 
 

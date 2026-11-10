@@ -1,0 +1,98 @@
+/* Question card */
+.qcard { width: 100%; }
+.qcard-q {
+  font-size: clamp(1.1rem, calc(var(--b) / 26), 2.4rem);
+  line-height: 1.2;
+}
+.answers { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2vmin; padding: 1.4vmin; }
+.answer {
+  display: flex;
+  align-items: center;
+  gap: 1.2vmin;
+  padding: 1.2vmin 1.6vmin;
+  border: 0.35vmin solid var(--ink);
+  border-radius: 14px;
+  color: #fff;
+  font-family: var(--body);
+  font-weight: 800;
+  font-size: clamp(1rem, calc(var(--b) / 34), 2rem);
+  text-align: left;
+  min-height: 3em;
+}
+button.answer { cursor: pointer; box-shadow: 0 0.5vmin 0 rgba(0, 0, 0, 0.35); }
+button.answer:active { transform: translateY(0.4vmin); box-shadow: none; }
+.answer-letter {
+  font-family: var(--display);
+  background: #fff;
+  color: var(--ink);
+  border-radius: 8px;
+  min-width: 1.8em;
+  text-align: center;
+  padding: 0.1em 0;
+}
+.answer-a { background: var(--c-red); }
+.answer-b { background: var(--c-blue); }
+.answer-c { background: var(--c-orange); }
+.answer-d { background: var(--c-green); }
+.answer.dimmed { opacity: 0.4; }
+.answer.selected { outline: 0.5vmin solid var(--ink); outline-offset: 2px; opacity: 1; }
+.answer.is-correct { outline: 0.6vmin solid #fff; box-shadow: 0 0 0 1.2vmin var(--monopoly-green); }
+
+/* Timer */
+.timer { width: 100%; }
+.timer-bar { height: 2.4vmin; background: #fff; border: 0.35vmin solid var(--ink); border-radius: 999px; overflow: hidden; }
+.timer-fill { height: 100%; background: var(--monopoly-green); }
+.timer-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: clamp(0.9rem, calc(var(--b) / 40), 1.6rem);
+  margin-top: 0.6vmin;
+  font-weight: 800;
+}
+
+/* Results */
+.result { width: 100%; }
+.strip-fail { background: #8b1e1e; }
+.result-line { margin: 0; text-align: center; font-size: clamp(1rem, calc(var(--b) / 34), 2rem); }
+
+/* House gamble */
+.gamble { width: 100%; }
+.gamble-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6vmin; width: 100%; }
+.gamble-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1vmin;
+  text-align: center;
+  background: #fff;
+  border: 0.35vmin solid var(--ink);
+  border-radius: 14px;
+  padding: 1.6vmin;
+  font-size: clamp(1rem, calc(var(--b) / 38), 1.8rem);
+}
+.gamble-option h3 { margin: 0; font-family: var(--display); font-weight: 400; }
+.gamble-option p { margin: 0; }
+
+/* Phone layout tweaks (cards stack under the header card) */
+.player { justify-content: flex-start; gap: 16px; }
+.player .join-card { max-width: 480px; }
+.player .answers { grid-template-columns: 1fr; padding: 12px; gap: 10px; }
+.player .answer { font-size: 1.15rem; padding: 14px; border-width: 3px; }
+.player .qcard-q { font-size: 1.25rem; }
+.player .gamble-options { grid-template-columns: 1fr; }
+.player .timer-bar { height: 14px; }
+
+/* Host panel */
+.host { max-width: 720px; margin: 0 auto; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+.host .answers { grid-template-columns: 1fr; }
+.host .answer, .host .gamble-option, .host .result-line, .host .stage-text { font-size: 1.05rem; }
+.host .qcard-q { font-size: 1.2rem; }
+.host .gamble-options { grid-template-columns: 1fr; }
+.host .timer-bar { height: 14px; }
+.dice-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; }
+.dice-grid .btn { padding: 14px 0; }
+.host-footer { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+
+@media (max-width: 800px) {
+  .answers, .gamble-options { grid-template-columns: 1fr; }
+}

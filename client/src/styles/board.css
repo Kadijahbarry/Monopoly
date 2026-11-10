@@ -1,7 +1,158 @@
-.board-page {
-  min-height: 100vh;
-  transition: background-color 0.8s ease;
+:root {
+  --c-brown: #955436;
+  --c-lightblue: #aae0fa;
+  --c-pink: #d93a96;
+  --c-orange: #f7941d;
+  --c-red: #ed1b24;
+  --c-yellow: #fef200;
+  --c-green: #1fb25a;
+  --c-blue: #0072bb;
+  --b: min(94vh, 66vw); /* board size; everything on the projector scales from this */
 }
 
-.turn-red  { background-color: var(--team-red); }
-.turn-blue { background-color: var(--team-blue); }
+/* The projector page. The background follows whose turn it is. */
+.board-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2vw;
+  padding: 2vh 2vw;
+  transition: background-color 0.8s ease;
+}
+.turn-red { background: var(--team-red); }
+.turn-blue { background: var(--team-blue); }
+
+.board {
+  position: relative;
+  width: var(--b);
+  height: var(--b);
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: repeat(11, 1fr);
+  background: var(--board-green);
+  border: 0.5vmin solid var(--ink);
+  box-shadow: 0 1.2vmin 0 rgba(0, 0, 0, 0.25);
+}
+
+.space {
+  position: relative;
+  border: 1px solid var(--ink);
+  background: #e6f2e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  padding: 24% 3% 3%;
+  font-size: calc(var(--b) / 95);
+  line-height: 1.1;
+  font-weight: 800;
+}
+.space-strip {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 22%;
+  border-bottom: 1px solid var(--ink);
+}
+.space-corner {
+  background: #fff;
+  font-family: var(--display);
+  font-size: calc(var(--b) / 60);
+  padding: 3%;
+}
+.space-chance, .space-chest, .space-tax, .space-rail, .space-utility { padding-top: 3%; }
+.space-house {
+  position: absolute;
+  right: 3%;
+  bottom: 2%;
+  font-size: calc(var(--b) / 40);
+}
+
+.board-center {
+  grid-row: 2 / 11;
+  grid-column: 2 / 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5%;
+  overflow: hidden;
+}
+
+.token {
+  position: absolute;
+  width: calc(var(--b) / 22);
+  height: calc(var(--b) / 22);
+  border-radius: 50%;
+  border: 0.35vmin solid #fff;
+  transform: translate(-50%, -50%);
+  transition: left 0.2s linear, top 0.2s linear;
+  box-shadow: 0 0.5vmin 0 rgba(0, 0, 0, 0.35);
+  z-index: 5;
+}
+.token-red { background: var(--team-red); }
+.token-blue { background: var(--team-blue); }
+
+/* Scoreboard (left of the board) */
+.scoreboard { display: flex; flex-direction: column; gap: 3vh; width: 20vw; }
+.score-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.score-card.active { transform: scale(1.05); box-shadow: 0 0 0 0.8vmin #fff, 0 1vmin 0 rgba(0, 0, 0, 0.25); }
+.score-cash { margin: 0; font-family: var(--display); font-size: clamp(2rem, 4.5vw, 4.5rem); }
+
+/* Middle-of-board stage */
+.stage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4vmin;
+}
+.stage-text { margin: 0; text-align: center; font-size: clamp(1rem, calc(var(--b) / 34), 2.2rem); }
+.turn-banner {
+  font-family: var(--display);
+  color: #fff;
+  padding: 0.8vmin 3vmin;
+  border-radius: 999px;
+  border: 0.4vmin solid var(--ink);
+  font-size: clamp(1.1rem, calc(var(--b) / 26), 2.4rem);
+  display: flex;
+  gap: 2vmin;
+  align-items: baseline;
+}
+.turn-count { font-family: var(--body); font-size: 0.55em; opacity: 0.9; }
+
+.sound-prompt { position: fixed; right: 2vmin; bottom: 2vmin; z-index: 20; }
+
+/* Winner screen */
+.winner {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5vh;
+  position: relative;
+  overflow: hidden;
+  padding: 4vh 5vw;
+}
+.winner.turn-red .title, .winner.turn-blue .title { color: #fff; }
+.final-scores { width: min(900px, 90vw); }
+.confetti {
+  position: absolute;
+  top: -5vh;
+  width: 1.2vmin;
+  height: 2.2vmin;
+  animation: fall linear infinite;
+}
+@keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
+
+@media (max-width: 800px) {
+  .board-page { flex-direction: column; }
+  .scoreboard { width: 100%; flex-direction: row; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .board-page, .token, .score-card { transition: none; }
+  .confetti { animation: none; }
+}
