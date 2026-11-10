@@ -1,17 +1,112 @@
 :root {
+  --board-green: #cde6d0;
   --monopoly-green: #1f9e5a;
   --monopoly-green-dark: #167a44;
   --card-cream: #f6f1dc;
+  --ink: #1a1a1a;
   --team-red: #c62828;
   --team-blue: #1565c0;
+  --display: "Alfa Slab One", Georgia, serif;
+  --body: "Nunito", system-ui, sans-serif;
 }
 
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--body);
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--board-green);
+}
+
+/* ---------- Buttons ---------- */
 .btn {
-  background: var(--monopoly-green);
-  color: white;
-  border: 3px solid var(--monopoly-green-dark);
-  border-radius: 16px;
+  font-family: var(--display);
+  font-size: 1.15rem;
   padding: 12px 28px;
-  font-weight: 800;
+  border-radius: 16px;
+  border: 3px solid var(--monopoly-green-dark);
+  background: var(--monopoly-green);
+  color: #fff;
   cursor: pointer;
+  box-shadow: 0 5px 0 var(--monopoly-green-dark);
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+.btn:hover { filter: brightness(1.06); }
+.btn:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--monopoly-green-dark); }
+.btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.btn:disabled { opacity: 0.6; cursor: wait; }
+.btn-cream {
+  background: var(--card-cream);
+  color: var(--ink);
+  border-color: var(--ink);
+  box-shadow: 0 5px 0 var(--ink);
+}
+.btn-cream:active { box-shadow: 0 1px 0 var(--ink); }
+
+/* ---------- Title ---------- */
+.title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 7vw, 5.5rem);
+  margin: 0;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+.title-small { font-size: clamp(2rem, 9vw, 3rem); margin-bottom: 20px; }
+.subtitle { text-align: center; font-size: clamp(1.1rem, 2vw, 1.6rem); margin: 12px 0 32px; }
+
+/* ---------- Deed card (used for lobby, join, and later questions) ---------- */
+.deed {
+  background: var(--card-cream);
+  border: 4px solid var(--ink);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.18);
+}
+.deed-strip {
+  font-family: var(--display);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  color: #fff;
+  text-align: center;
+  padding: 14px;
+  border-bottom: 4px solid var(--ink);
+}
+.strip-red { background: var(--team-red); }
+.strip-blue { background: var(--team-blue); }
+.strip-green { background: var(--monopoly-green); }
+.deed-body { padding: 20px 24px 26px; display: flex; flex-direction: column; gap: 14px; align-items: center; }
+.deed-label { margin: 0; font-size: 1.1rem; }
+.deed-code { margin: 0; font-family: var(--display); font-size: clamp(3rem, 7vw, 5.5rem); letter-spacing: 0.06em; }
+.deed-count { margin: 0; font-size: 1.2rem; }
+
+/* ---------- Lobby (projector) ---------- */
+.lobby { min-height: 100vh; padding: 36px 5vw; }
+.deeds { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4vw; max-width: 1300px; margin: 0 auto; }
+
+.player-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.chip { background: #fff; border: 2px solid var(--ink); border-radius: 999px; padding: 4px 14px; }
+.empty { margin: 0; opacity: 0.7; }
+
+/* ---------- Phone screens ---------- */
+.join, .player { min-height: 100vh; padding: 28px 16px; display: flex; flex-direction: column; align-items: center; }
+.join-card { width: 100%; max-width: 420px; }
+.join label { display: flex; flex-direction: column; gap: 6px; width: 100%; font-weight: 800; }
+.join input {
+  font: inherit; font-size: 1.3rem; padding: 12px 14px;
+  border: 3px solid var(--ink); border-radius: 12px; background: #fff;
+}
+.join input:focus-visible { outline: 3px solid var(--monopoly-green); outline-offset: 2px; }
+.error { color: var(--team-red); margin: 0; font-weight: 800; }
+.waiting { margin: 0; text-align: center; font-size: 1.15rem; }
+.player { justify-content: center; transition: background-color 0.8s ease; }
+.team-red { background: var(--team-red); }
+.team-blue { background: var(--team-blue); }
+
+@media (max-width: 800px) {
+  .deeds { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn, .player { transition: none; }
 }
